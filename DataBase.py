@@ -21,3 +21,9 @@ def updatePrice(price, name):
     mycursor.execute(sql, val)
     mydb.commit()
     print(mycursor.rowcount, " update price for: ", name)
+
+def showPrice():
+    mycursor.execute("SELECT * FROM price")
+    myresult = mycursor.fetchall()
+    for x in myresult:
+        print(f'name: {x[1]} - price: {x[2]}')

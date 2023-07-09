@@ -1,9 +1,9 @@
 from mysql.connector import connect
-
+import dataItem
 mydb = connect(
-    host="localhost",
-    user="root",
-    password="123",
+    host=dataItem.host,
+    user=dataItem.user,
+    password=dataItem.password,
     database="arz"
 )
 mycursor = mydb.cursor()
@@ -15,9 +15,9 @@ def addTodatabase(name, price):
     mydb.commit()
     print(mycursor.rowcount," add in table")
 
-def updatePrice(price, name)
+def updatePrice(price, name):
     sql = "UPDATE `price` SET `price` = %s WHERE price.name = %s; "
     val = (price, name)
     mycursor.execute(sql, val)
     mydb.commit()
-    print(mycursor.rowcount, " update price for: ",name)
+    print(mycursor.rowcount, " update price for: ", name)

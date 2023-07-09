@@ -1,6 +1,6 @@
-import requests, csv
 from bs4 import BeautifulSoup
 from DataBase import addTodatabase, updatePrice
+import dataItem
 # Send a GET request to the website
 url = "https://www.tgju.org/currency"
 response = requests.get(url)
@@ -9,10 +9,8 @@ response = requests.get(url)
 soup = BeautifulSoup(response.text, 'html.parser')
 
 # Find the table containing the currency rates
-tables = soup.find_all('table',{"class": "data-table"})
+tables = soup.find_all('table', {"class": "data-table"})
 
-f = open('arz.csv','a+')
-writer = csv.writer(f)
 for table in tables:
     rows = table.find_all('tr')
 
@@ -25,10 +23,7 @@ for table in tables:
         price = cells[2].text.strip()
         print(f"Currency: {spanCell}\tPrice: {price}")
         price = int(price.replace(",",""))
-        data = [spanCell,price]
         # for add a item in data base
         # addTodatabase(spanCell, price)
         # for update price data base
         updatePrice(price,spanCell)
-        writer.writerow(data)
-f.close

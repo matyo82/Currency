@@ -1,6 +1,6 @@
 import requests, csv
 from bs4 import BeautifulSoup
-
+from DataBase import addTodatabase, updatePrice
 # Send a GET request to the website
 url = "https://www.tgju.org/currency"
 response = requests.get(url)
@@ -26,5 +26,9 @@ for table in tables:
         print(f"Currency: {spanCell}\tPrice: {price}")
         price = int(price.replace(",",""))
         data = [spanCell,price]
+        # for add a item in data base
+        # addTodatabase(spanCell, price)
+        # for update price data base
+        updatePrice(price,spanCell)
         writer.writerow(data)
 f.close
